@@ -21,6 +21,33 @@ namespace Covid19HospitalMangement.WebAPI.Controllers
             _context = context;
         }
 
+        // Admit patient to a hospital
+        [HttpPut]
+        [Route("admit/{patientid}/{hospitalid}")]
+        public ActionResult Admit(Guid patientid, Guid hospitalid)
+        {
+            PatientPoco patient = _context.PatientPoco.First(b => b.Id == patientid);
+            HospitalPoco hospital = _context.HospitalPocos.First(u => u.Id == hospitalid);
+
+            patient.Hospital = hospital;
+            _context.SaveChanges();
+            return Ok();
+        }
+
+
+        // Discharge patient from hospital
+        [HttpPut]
+        [Route("discharge/{patientid}/{hospitalid}")]
+        public ActionResult Discharge(Guid patientid, Guid hospitalid)
+        {
+            PatientPoco patient = _context.PatientPoco.First(b => b.Id == patientid);
+            HospitalPoco hospital = _context.HospitalPocos.First(u => u.Id == hospitalid);
+
+            patient.Hospital = null;
+            _context.SaveChanges();
+            return Ok();
+        }
+
         // GET: api/Hospitals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HospitalPoco>>> GetHospitalPocos()
