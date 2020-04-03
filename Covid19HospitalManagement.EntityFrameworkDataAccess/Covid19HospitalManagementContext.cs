@@ -14,6 +14,10 @@ namespace Covid19HospitalManagement.EntityFrameworkDataAccess
 
         public DbSet<HospitalPoco> HospitalPocos { get; set; }
 
+        public Covid19HospitalManagementContext(DbContextOptions options): base(options)
+        {
+           
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder();

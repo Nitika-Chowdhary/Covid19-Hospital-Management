@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Covid19HospitalManagement.EntityFrameworkDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,6 +37,9 @@ namespace Covid19HospitalMangement.WebAPI
                         .ReferenceLoopHandling
                         = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
+
+            //var ConnectionString = Configuration["ConnectionStrings:DataConnection"];
+            services.AddDbContext<Covid19HospitalManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DataConnection")));
 
             services.AddSwaggerGen(c =>
             {
